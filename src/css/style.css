@@ -1,0 +1,247 @@
+.room {
+  padding: 50px;
+}
+
+.title-screen {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-screen h1 {
+  font-size: 4em;
+}
+
+.title-screen .wrapper {
+  text-align: center;
+}
+
+::selection {
+  background: #B4D5FF;
+}
+
+.title-screen input {
+  height: 60px;
+  font-size: 30px;
+  border-radius: 50px;
+  padding: 20px;
+  width: 150px;
+  text-align: center;
+}
+
+input:focus {
+  outline: none;
+}
+
+/* ======= */
+/* BUTTONS */
+/* ======= */
+
+.button {
+  line-height: 80px !important;
+  padding: 10px 48px;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  line-height: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.3s;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  color: white;
+  background-color: #343a40;
+}
+
+.button-small {
+  padding: 10px 18px;
+  font-size: 15px;
+  letter-spacing: 2px;
+  border-radius: 25px;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  bottom: -10px;
+  left: 5%;
+  height: 110%;
+  width: 90%;
+  opacity: 0.8;
+  border-radius: 50px;
+  
+  /* Declaring our shadow color inherit from the parent (button) */
+  background: inherit;
+  
+  /* Blurring the element for shadow effect */
+  filter: blur(6px);
+  
+  /* Transition for the magic */
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.button:hover, .button:focus {
+  text-decoration: none;
+  outline: none;
+  color: white;
+}
+
+.button:hover::after, .button:focus::after {
+  /* Changing blur effect */
+  filter: blur(4px);
+
+  /* And change the style properties */
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+}
+
+.button:hover:active::after {
+  filter: blur(10px);
+}
+
+/* ==== */
+/* ROOM */
+/* ==== */
+
+img {
+  max-width: 100%;
+}
+
+.key {
+  height: 50px;
+  width: 50px;
+  margin: auto;
+  margin-right: 0;
+  margin-left: 0;
+  border: 1px solid black;
+  display: inline-block;
+}
+
+.letter {
+  height: 50px;
+  width: 50px;
+  margin: auto;
+  margin-right: 5px;
+  margin-left: 5px;
+  border-bottom: 2px solid gray;
+  display: inline-block;
+}
+
+.letter-blank {
+  height: 50px;
+  width: 50px;
+  margin: auto;
+  margin-right: 5px;
+  margin-left: 5px;
+  border-bottom: 1px solid white;
+  display: inline-block;
+}
+
+#show-word {
+  text-decoration: none;
+}
+
+#word {
+  width: 500px;
+  margin: auto;
+}
+
+.pages {
+  padding-right: 20px;
+}
+
+.enter-word {
+  box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+  border-radius: .5em;
+  list-style: none;
+  font-size: 120%;
+}
+
+.pages input {
+  display: block;
+  padding: 5px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #757575;
+  max-width: 100%;
+  outline: none;
+  color: #666;
+}
+
+.pages input:focus ~ .underline {
+  width: 100%;
+  left: 0;
+}
+
+.word-input {
+  padding: 0 20px;
+}
+
+.heading {
+  padding: 20px 20px 0px 20px;
+}
+
+.enter-word .button {
+  margin-left: 20px;
+}
+
+/* ==== */
+/* CHAT */
+/* ==== */
+
+.chat {
+  box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+  border-radius: .5em;
+  list-style: none;
+  font-size: 120%;
+}
+
+.chat-input {
+  padding: 0 20px 10px 20px;
+}
+
+.wrong-letters {
+  box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+  width: 100%;
+}
+
+.underline {
+  display: block;
+  position: relative;
+  margin-bottom: 10px;
+  width: 0;
+  max-width: 100%;
+  height: 2px;
+  margin-top: -2px;
+  background: black;
+  transition: 0.3s;
+  left: 50%;
+}
+
+.messages {
+  padding: 10px 20px 10px 20px;
+  height: 70vh;
+  overflow-y: scroll;
+}
+
+.messages li {
+  list-style: none;
+}
+
+.log {
+  color: gray;
+  font-weight: bold;
+  font-size: 80%;
+}
+
+.username {
+  padding-right: 15px;
+  font-weight: bold;
+}
+
