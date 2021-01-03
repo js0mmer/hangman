@@ -28,6 +28,12 @@
   padding: 20px;
   width: 150px;
   text-align: center;
+  border-color: #343a40;
+  margin-right: 14px;
+}
+
+.title-screen input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 
 input:focus {
@@ -105,12 +111,79 @@ input:focus {
   filter: blur(10px);
 }
 
+.button.disabled {
+  pointer-events: none;
+}
+
+
+/* ====== */
+/* INPUTS */
+/* ====== */
+
+.chat input, .create-room input {
+  display: block;
+  padding: 5px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #757575;
+  max-width: 100%;
+  outline: none;
+  color: #666;
+}
+
+.chat input:focus ~ .underline, .create-room input:focus ~ .underline {
+  width: 100%;
+  left: 0;
+}
+
+/* ==== */
+/* CARD */
+/* ==== */
+
+.rounded-card {
+  box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+  border-radius: .5em;
+}
+
+/* =========== */
+/* CREATE ROOM */
+/* =========== */
+
+.create-room {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-room .rounded-card {
+  width: 100%;
+}
+
+.create-room .button {
+  margin-left: 20px;
+}
+
+.word-input {
+  padding: 0 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .create-room .rounded-card {
+    width: 50%;
+  }
+}
+
 /* ==== */
 /* ROOM */
 /* ==== */
 
 img {
   max-width: 100%;
+}
+
+.col-md-4 {
+  margin-bottom: 30px;
 }
 
 .key {
@@ -163,26 +236,6 @@ img {
   font-size: 120%;
 }
 
-.pages input {
-  display: block;
-  padding: 5px;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #757575;
-  max-width: 100%;
-  outline: none;
-  color: #666;
-}
-
-.pages input:focus ~ .underline {
-  width: 100%;
-  left: 0;
-}
-
-.word-input {
-  padding: 0 20px;
-}
-
 .heading {
   padding: 20px 20px 0px 20px;
 }
@@ -196,8 +249,6 @@ img {
 /* ==== */
 
 .chat {
-  box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
-  border-radius: .5em;
   list-style: none;
   font-size: 120%;
 }

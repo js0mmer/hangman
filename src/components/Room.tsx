@@ -113,28 +113,26 @@ class Room extends React.Component<IProps, IState> {
     return(
       <div className="room row">
         <div className="col-md-4">
-          <ul className="pages">
-            <li className="chat">
-              <div>
-                <ul className="messages" ref={this.messages}>
-                  <Message data={{ username: "jacob", color: "rgb(59, 136, 235)", message: "e" }} />
-                  <Log correct={true} />
-                </ul>
-              </div>
-              <div className="chat-input">
-                <input type="text" placeholder="Guess here..." onKeyDown={this.keyDown} ref={this.chatInput} />
-                <span className="underline"></span>
-              </div>
-            </li>
-          </ul>
+          <div className="chat rounded-card">
+            <div>
+              <ul className="messages" ref={this.messages}>
+                <Message data={{ username: "jacob", color: "rgb(59, 136, 235)", message: "e" }} />
+                <Log correct={true} />
+              </ul>
+            </div>
+            <div className="chat-input">
+              <input type="text" placeholder="Guess here..." onKeyDown={this.keyDown} ref={this.chatInput} />
+              <span className="underline"></span>
+            </div>
+          </div>
         </div>
-        <div className="col-xs-4">
+        <div className="col-md-4">
           <div className="container">
             <img src={svg0} id="img" alt="Hangman" /><br />
             {this.state.letterElements.map(item => item)}
           </div>
         </div>
-        <div className="col-xs-4">
+        <div className="col-md-4">
           <div className="container">
             <h1 id="wrong-letters">EA</h1>
           </div>

@@ -7,7 +7,7 @@ interface IState {
 }
 
 class Home extends React.Component<{}, IState> {
-  readonly state: IState = { code: Number.NaN };
+  readonly state: IState = { code: NaN };
 
   handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ code: Number.parseInt(e.target.value) });
@@ -21,7 +21,7 @@ class Home extends React.Component<{}, IState> {
           <Link className="button" to="/create-room">Create Room</Link>
           <div className="join-group">
             <input type="number" name="code" min={0} max={9999} value={this.state.code} onChange={this.handleCodeChange} />
-            <Link className="button" to={`/room/${this.state.code}`}>Join</Link>
+            <Link className={'button' + (isNaN(this.state.code) ? ' disabled' : '')} to={`/room/${this.state.code}`}>Join</Link>
           </div>
         </div>
       </div>
