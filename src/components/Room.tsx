@@ -6,9 +6,9 @@ import { config } from '../config';
 
 function Letter(n: number, letter?: string) {
   return (
-    <div key={n} className="letter">
-      <div>{letter}</div>
-    </div>
+    <h1 key={n} className="letter">
+      {letter}
+    </h1>
   );
 }
 
@@ -59,7 +59,7 @@ interface IState {
 }
 
 class Room extends React.Component<IProps, IState> {
-  readonly state: IState = { roomId: 0, wordLength: 5, letterElements: [], knownLetters: [], socket: socketClient(config.serverURL) };
+  readonly state: IState = { roomId: 0, wordLength: 5, letterElements: [], knownLetters: ['H'], socket: socketClient(config.serverURL) };
   private chatInput = React.createRef<HTMLInputElement>();
   private messages = React.createRef<HTMLUListElement>();
 
@@ -129,7 +129,9 @@ class Room extends React.Component<IProps, IState> {
         <div className="col-md-4">
           <div className="container">
             <img src={svg0} id="img" alt="Hangman" /><br />
-            {this.state.letterElements.map(item => item)}
+            <div className="row letters-wrapper">
+              {this.state.letterElements.map(item => item)}
+            </div>
           </div>
         </div>
         <div className="col-md-4">

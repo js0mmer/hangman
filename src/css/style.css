@@ -199,21 +199,14 @@ img {
 .letter {
   height: 50px;
   width: 50px;
-  margin: auto;
-  margin-right: 5px;
-  margin-left: 5px;
+  margin: 5px;
   border-bottom: 2px solid gray;
   display: inline-block;
+  text-align: center;
 }
 
-.letter-blank {
-  height: 50px;
-  width: 50px;
-  margin: auto;
-  margin-right: 5px;
-  margin-left: 5px;
-  border-bottom: 1px solid white;
-  display: inline-block;
+.letters-wrapper {
+  margin-top: 50px;
 }
 
 #show-word {
