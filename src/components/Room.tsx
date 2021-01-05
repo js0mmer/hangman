@@ -158,7 +158,10 @@ class Room extends React.Component<IProps, IState> {
       }
 
       this.setState({ isTurn: true });
-      console.log(!this.state.gameStarted || this.state.isHost || !this.state.isTurn);
+    });
+
+    socket.on('turn_end', () => {
+      this.setState({ isTurn: false });
     });
 
     socket.on('win', () => {
