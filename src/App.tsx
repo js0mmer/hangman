@@ -11,7 +11,7 @@ import CreateRoom from './components/CreateRoom';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/">
       <Switch>
         <Route path="/room/:id" component={Room} />
         <Route path="/create-room" component={CreateRoom} />
