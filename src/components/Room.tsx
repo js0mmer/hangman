@@ -221,6 +221,8 @@ class Room extends React.Component<IProps, IState> {
       this.chatInput.current.value = "";
 
       socket.emit('guess', message);
+    } else if (!e.key.match(/^[a-zA-Z]+$/)) {
+      e.preventDefault();
     }
   };
 
@@ -255,7 +257,7 @@ class Room extends React.Component<IProps, IState> {
                 </ul>
               </div>
               <div className="chat-input">
-                <input type="text" placeholder="Guess here..." onKeyDown={this.keyDown} ref={this.chatInput} disabled={!this.state.gameStarted || this.state.isHost || !this.state.isTurn} />
+                <input type="text" placeholder="Guess here..." maxLength={1} onKeyDown={this.keyDown} ref={this.chatInput} disabled={!this.state.gameStarted || this.state.isHost || !this.state.isTurn} />
                 <span className="underline"></span>
               </div>
             </div>
