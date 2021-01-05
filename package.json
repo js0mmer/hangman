@@ -53,5 +53,6 @@
   },
   "main": "src/index.tsx",
   "author": "Jacob Sommer <jacob.sommer@comcast.net>",
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "http://js0mmer.github.io/hangman"
 }
