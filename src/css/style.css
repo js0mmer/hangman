@@ -1,6 +1,14 @@
-.room {
-  padding: 50px;
+::selection {
+  background: #B4D5FF;
 }
+
+input:focus {
+  outline: none;
+}
+
+/* ============ */
+/* TITLE SCREEN */
+/* ============ */
 
 .title-screen {
   height: 100vh;
@@ -17,10 +25,6 @@
   text-align: center;
 }
 
-::selection {
-  background: #B4D5FF;
-}
-
 .title-screen input {
   height: 60px;
   font-size: 30px;
@@ -34,10 +38,6 @@
 
 .title-screen input::-webkit-inner-spin-button {
   -webkit-appearance: none;
-}
-
-input:focus {
-  outline: none;
 }
 
 /* ======= */
@@ -79,14 +79,8 @@ input:focus {
   width: 90%;
   opacity: 0.8;
   border-radius: 50px;
-  
-  /* Declaring our shadow color inherit from the parent (button) */
   background: inherit;
-  
-  /* Blurring the element for shadow effect */
   filter: blur(6px);
-  
-  /* Transition for the magic */
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
 }
@@ -98,10 +92,7 @@ input:focus {
 }
 
 .button:hover::after, .button:focus::after {
-  /* Changing blur effect */
   filter: blur(4px);
-
-  /* And change the style properties */
   width: 100%;
   bottom: -5px;
   left: 0;
@@ -210,6 +201,11 @@ img {
   margin-top: 50px;
 }
 
+.room {
+  padding: 50px;
+}
+
+
 #show-word {
   text-decoration: none;
 }
@@ -237,10 +233,6 @@ img {
 .enter-word .button {
   margin-left: 20px;
 }
-
-/* ==== */
-/* CHAT */
-/* ==== */
 
 .chat {
   list-style: none;
