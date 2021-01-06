@@ -9,6 +9,7 @@ import svg6 from '../images/6.svg';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import socket from '../client';
 import Username from './Username';
+import Popup, { GameResult } from './Popup';
 
 function Letter(n: number, letter?: string) {
   return (
@@ -63,7 +64,9 @@ interface IState {
   isTurn: boolean,
   chat: JSX.Element[],
   kick: boolean,
-  svg: number
+  svg: number,
+  players: string[],
+  endMessage: JSX.Element | undefined
 }
 
 export enum RoomStatus {
@@ -80,7 +83,7 @@ class Room extends React.Component<IProps, IState> {
     needsUsername: true, username: '', isHost: false, gameStarted: false,
     isTurn: false,
     chat: [<Log key={0} message="Please wait for the host to start the game" />],
-    kick: false, svg: 0 };
+    kick: false, svg: 0, players: [], endMessage: undefined };
   private chatInput = React.createRef<HTMLInputElement>();
   private messages = React.createRef<HTMLUListElement>();
   private wrongLetters = React.createRef<HTMLHeadingElement>();
@@ -181,13 +184,19 @@ class Room extends React.Component<IProps, IState> {
     });
 
     socket.on('win', () => {
-      // TODO: win message + kick to menu
-      this.setState({ kick: true });
+      this.setState({ endMessage: <Popup result={GameResult.WIN} /> });
+
+      setTimeout(() => {
+        this.setState({ kick: true });
+      }, 3000);
     });
 
     socket.on('lose', () => {
-      // TODO: lose message + kick to menu
-      this.setState({ kick: true });
+      this.setState({ endMessage: <Popup result={GameResult.LOSE} /> });
+
+      setTimeout(() => {
+        this.setState({ kick: true });
+      }, 3000);
     });
 
     socket.on('word_length', (wordLength: number) => {
@@ -201,6 +210,24 @@ class Room extends React.Component<IProps, IState> {
 
     socket.on('connect', () => {
       socket.emit('join_room', roomId);
+    });
+
+    socket.on('player_join', (name: string) => {
+      if (name === this.state.username) return;
+      let players = this.state.players;
+      players.push(name);
+      this.addLog(name + ' joined the game');
+      this.setState({ players });
+    });
+
+    socket.on('player_list', (players: string[]) => {
+      this.setState({ players });
+    }) 
+
+    socket.on('player_leave', (name: string) => {
+      let players = this.state.players.filter(item => item !== name); // filter out the player who left
+      this.addLog(name + ' left the game');
+      this.setState({ players });
     });
 
     if (!socket.connected) {
@@ -265,6 +292,7 @@ class Room extends React.Component<IProps, IState> {
     } else {
       return (
         <div className="room row">
+          {this.state.endMessage}
           <div className="col-md-4">
             <div className="chat rounded-card">
               <div>
@@ -286,11 +314,19 @@ class Room extends React.Component<IProps, IState> {
               </div>
             </div>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-2">
             <div className="container">
               <StartButton isHost={this.state.isHost} gameStarted={this.state.gameStarted} onClick={this.startGame} />
               {/* eslint-disable-next-line jsx-a11y/heading-has-content */}
               <h1 id="wrong-letters" ref={this.wrongLetters}></h1>
+            </div>
+          </div>
+          <div className="col-md-2">
+            <div className="players rounded-card">
+              <h3>Players</h3>
+              <ul>
+                {this.state.players.map(item => <li>{item}</li>)}
+              </ul>
             </div>
           </div>
         </div>
