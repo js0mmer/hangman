@@ -32,6 +32,10 @@ class Home extends React.Component<{}, IState> {
     }
   }
 
+  componentWillUnmount() {
+    socket.off('room_status');
+  }
+
   handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 6) {
       this.setState({ code: Number.parseInt(e.target.value) });
