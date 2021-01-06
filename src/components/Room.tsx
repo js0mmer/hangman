@@ -18,9 +18,9 @@ function Letter(n: number, letter?: string) {
   );
 }
 
-function Message(props: { data: ChatObject }) {
+function Message(props: { data: GuessObject }) {
   return (
-    <li className="message"><span className="username">{props.data.username}</span>{props.data.letter}</li>
+    <li className="message"><span className="username">{props.data.username}</span>{props.data.guess}</li>
   );
 }
 
@@ -38,9 +38,9 @@ function StartButton(props: { isHost: boolean, onClick: (event: React.MouseEvent
   }
 }
 
-interface ChatObject {
+interface GuessObject {
   username: string,
-  letter: string,
+  guess: string,
   indices: number[],
   result?: boolean
 }
@@ -94,6 +94,15 @@ class Room extends React.Component<IProps, IState> {
     this.setState({ letterElements });
   }
 
+  renderWord(word: string) {
+    let letterElements: JSX.Element[] = [];
+    for (let i = 0; i < word.length; i++) {
+      letterElements.push(Letter(i, word[i]));
+    }
+
+    this.setState({ letterElements });
+  }
+
   componentDidMount() {
     this.renderLetters();
 
@@ -114,25 +123,32 @@ class Room extends React.Component<IProps, IState> {
       }
     });
 
-    socket.on('guess', (data: ChatObject) => {
+    socket.on('guess', (data: GuessObject) => {
       this.addMessage(data);
 
       switch (data.result) { // if correct then fill in blanks
         case true:
-          let knownLetters = this.state.knownLetters;
-          console.log(data.indices);
+          if (data.guess.length === 1) { // if guessing letter
+            let knownLetters = this.state.knownLetters;
 
-          for (var i = 0; i < data.indices.length; i++) {
-            knownLetters[data.indices[i]] = data.letter;
+            for (var i = 0; i < data.indices.length; i++) { 
+              knownLetters[data.indices[i]] = data.guess;
+            }
+
+            this.setState({ knownLetters });
+            this.renderLetters();
+          } else { // if guessed word
+            this.renderWord(data.guess);
           }
-          console.log(knownLetters);
-          this.setState({ knownLetters });
-          this.renderLetters();
+
           this.addLog('Correct!');
           break;
-        case false: // if wrong, add to wrong letters
-          if (this.wrongLetters.current == null) return;
-          this.wrongLetters.current.innerHTML += data.letter;
+        case false: // wrong
+          if (data.guess.length === 1) { // if guessing letter
+            if (this.wrongLetters.current == null) return;
+            this.wrongLetters.current.innerHTML += data.guess; // add to wrong letters
+          }
+
           this.setState({ svg: this.state.svg + 1 });
           this.addLog('Nope');
           break;
@@ -207,7 +223,7 @@ class Room extends React.Component<IProps, IState> {
     this.setState({ chat });
   }
 
-  addMessage(data: ChatObject) {
+  addMessage(data: GuessObject) {
     let i = this.state.chat.length;
     let chat = this.state.chat;
 
@@ -257,7 +273,7 @@ class Room extends React.Component<IProps, IState> {
                 </ul>
               </div>
               <div className="chat-input">
-                <input type="text" placeholder="Guess here..." maxLength={1} onKeyDown={this.keyDown} ref={this.chatInput} disabled={!this.state.gameStarted || this.state.isHost || !this.state.isTurn} />
+                <input type="text" placeholder="Guess here..." onKeyDown={this.keyDown} ref={this.chatInput} disabled={!this.state.gameStarted || this.state.isHost || !this.state.isTurn} />
                 <span className="underline"></span>
               </div>
             </div>

@@ -203,6 +203,7 @@ img {
   border-bottom: 2px solid gray;
   display: inline-block;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .letters-wrapper {
@@ -216,6 +217,10 @@ img {
 #word {
   width: 500px;
   margin: auto;
+}
+
+#wrong-letters {
+  text-transform: uppercase;
 }
 
 .pages {
