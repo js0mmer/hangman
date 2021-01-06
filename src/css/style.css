@@ -2,10 +2,6 @@
   background: #B4D5FF;
 }
 
-input:focus {
-  outline: none;
-}
-
 /* ============ */
 /* TITLE SCREEN */
 /* ============ */
@@ -110,6 +106,10 @@ input:focus {
 /* ====== */
 /* INPUTS */
 /* ====== */
+
+input:focus {
+  outline: none;
+}
 
 .chat input, .create-room input {
   display: block;
