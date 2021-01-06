@@ -5,12 +5,12 @@ import { RoomStatus } from './Room';
 
 
 interface IState {
-  code: number | undefined,
+  code: number,
   join: boolean
 }
 
 class Home extends React.Component<{}, IState> {
-  readonly state: IState = { code: undefined, join: false };
+  readonly state: IState = { code: 0, join: false };
 
   componentDidMount() {
     socket.on('room_status', (status: RoomStatus) => {
@@ -52,7 +52,7 @@ class Home extends React.Component<{}, IState> {
             <h1>Hangman</h1>
             <Link className="button" to="/create-room">Create Room</Link>
             <div className="join-group">
-              <input type="number" name="code" min={0} max={999999} value={this.state.code} onChange={this.handleCodeChange} />
+              <input type="number" name="code" min={0} max={999999} value={this.state.code ? this.state.code : ''} onChange={this.handleCodeChange} />
               <span className={'button' + (!this.state.code || String(this.state.code).length < 6 ? ' disabled' : '')} onClick={this.handleJoin}>Join</span>
             </div>
           </div>
